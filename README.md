@@ -1,2 +1,2 @@
 # Adversarial-Attacks
-This repository contains pytorch implementation of multiple adversarial attacks approach for vision models
+This repository contains pytorch implementation of multiple adversarial attack approacha for vision models
