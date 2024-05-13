@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 criterion = nn.CrossEntropyLoss()
 
-img = Image.open("./Images/flamingo.jpg")
+img = Image.open("./Images/elephant.jpg")
 img = preprocess_img(img)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
