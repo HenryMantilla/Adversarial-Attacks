@@ -1,28 +1,26 @@
 import torch
-from torchvision.models import resnet50, ResNet50_Weights
+import torch.nn as nn
+from torchvision.models import resnet34
 
 from PIL import Image
-from utils import preprocess_img
-from Attacks.FGSM import FGSM
+from utils import preprocess_img, display_images
+from Attacks.FGSM import generate_adv_img
 
-# TO-DO: Implement as dataloader
-def test(model, device, test_img):
-    
-    test_img = test_img.to(device)
-    test_img.requires_grad = True
+import matplotlib.pyplot as plt
+# TO-DO: Implement dataloader for images
 
-    output = model(test_img)
-    pred_confidence, pred_idx = output.max(dim=1, keepdim=True)
-
-    return pred
+criterion = nn.CrossEntropyLoss()
 
 img = Image.open("./Images/flamingo.jpg")
 img = preprocess_img(img)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = resnet50(weights=ResNet50_Weights.DEFAULT)
+model = resnet34(weights="IMAGENET1K_V1")
 model.eval()
 
-pred = test(model, device, img.unsqueeze(0))
+eps = 0.05
+adv_img, adv_pattern, org_pred, final_pred = generate_adv_img(model, device, img.unsqueeze(0), epsilon=eps, target_label=130)
+adv_img = adv_img.squeeze()
 
-#corrupted = FGSM(image=img, epsilon=, grads=)
+display_images(img, adv_img, adv_pattern, org_pred, final_pred, eps)
+
