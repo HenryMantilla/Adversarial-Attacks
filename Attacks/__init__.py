@@ -1,1 +1,1 @@
-from .FGSM import *
+from .Attack import Attack
