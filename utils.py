@@ -35,7 +35,7 @@ def display_images(img, adv_img, adv_pattern, preds, final_preds, eps, K=5):
     ax[0].imshow(img.permute(1,2,0))
     ax[1].set_title('Adversarial Pattern')
     ax[1].imshow(adv_pattern.squeeze(0).permute(1,2,0))
-    ax[2].set_title('Corrupted with epsilon = {:0.3f} \n {} : {:.2f}%Confidence'.
+    ax[2].set_title('Corrupted with epsilon = {:0.3f} \n {} : {:.2f}% Confidence'.
                     format(eps,label_adv,confidence_adv.item()*100)) 
     ax[2].imshow(adv_img.detach().permute(1,2,0))
     
